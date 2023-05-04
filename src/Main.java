@@ -61,6 +61,52 @@ public class Main {
     }
 }
 
+// завдання 2
+
+import java.io.*;
+
+public class main2 {
+    public static void main(String[] args) {
+        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter fileWriter = null;
+        String filePath = null;
+
+        // запит шляху до файлу
+        while (true) {
+            try {
+                System.out.print("Введіть шлях до файлу: ");
+                filePath = consoleReader.readLine();
+                fileWriter = new BufferedWriter(new FileWriter(filePath, true)); // додаємо в кінець файлу
+                break;
+            } catch (FileNotFoundException e) {
+                System.out.println("Файл не знайдено!");
+            } catch (IOException e) {
+                System.out.println("Помилка вводу/виводу: " + e.getMessage());
+            }
+        }
+
+        System.out.println("Введіть символи для запису у файл (Ctrl + Z для завершення вводу):");
+
+        // читання символів з консолі та запис у файл
+        try {
+            String line;
+            while ((line = consoleReader.readLine()) != null) {
+                fileWriter.write(line);
+                fileWriter.newLine();
+                fileWriter.flush(); // очищення буфера
+            }
+        } catch (IOException e) {
+            System.out.println("Помилка вводу/виводу: " + e.getMessage());
+        } finally {
+            try {
+                consoleReader.close();
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Помилка вводу/виводу: " + e.getMessage());
+            }
+        }
+    }
+}
 
 
     }
